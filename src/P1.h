@@ -24,9 +24,7 @@ private:
 //    T* data_ = nullptr;
     //size_t size_ = 0;
 public:
-    symmetric_difference_t<T>(const std::vector<T>& v1,const std::vector<T>& v2) {
-        // UNIR VECTORES
-        //vector<T> merged = v1;
+    symmetric_difference_t<T>(const std::vector<T>& v1,const std::vector<T>& v2) { // como se cuando va algo aqui y cuando no
         vector<T> merged;
         for (int i = 0; i < v1.size(); i++) {
             bool found = false;
@@ -58,39 +56,7 @@ public:
         res = merged;
         auto last = std::unique(res.begin(), res.end()); // Borra duplicados
         res.erase(last, res.end());
-
     }
-
-//        merged.insert(merged.end(), v2.begin(), v2.end());
-//        sort(merged.begin(), merged.end());
-//
-//        //Eliminar valores iguales
-//        for (auto it = merged.begin(); it != merged.end();) {
-//            auto next_it = std::next(it);
-//            if (next_it != merged.end() && *it == *next_it) {
-//                it = merged.erase(it, next_it + 1);
-//            } else {
-//                ++it;
-//            }
-//        }
-
-
-//        // RESULTADO
-//        data_ = new T[merged.size()];
-//        std::copy(merged.begin(), merged.end(), data_);
-        //res = merged;
-    //}
-
-//    ~symmetric_difference_t() {
-//        delete[] res;
-////    }
-//    vector<T> removeDuplicates()
-//    {
-//        std::sort(res.begin(), res.end());
-//        auto last = std::unique(res.begin(), res.end());
-//        res.erase(last, res.end());
-//        return res;
-//    }
 
     size_t size()  {
         return res.size();
