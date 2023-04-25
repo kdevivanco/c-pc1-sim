@@ -8,6 +8,7 @@
 #include <string>
 #include <list>
 #include <array>
+#include <forward_list>
 #include "P2.h"
 
 using namespace std;
@@ -34,12 +35,17 @@ using namespace std;
 //}
 void question_2(){
     std::list<int> lst1 = {3, 3, -3, 5, 4, -4, 0, -4, -4, -5};
-    std::deque f1 = get_maximum_product_range<std::deque>(lst1);
-    for (const auto& row: f1) {
-       for(const auto& value: row)
-           std::cout << value << " ";
-       std::cout << std::endl;
-   }
+    std::deque<int> f1 = get_maximum_product_range<deque<int>>(lst1);
+    for (const auto& value : f1) {
+        std::cout << value << " ";
+    }
+
+    cout<<'\n';
+    std::forward_list<int> flst1 = {1, 2, -3, 0, 0, -3, -2, 5, -1, -5};
+    std::vector<int> f2 = get_maximum_product_range(flst1); // En este caso sera vector
+    for (const auto& value : f2) {
+        std::cout << value << " ";
+    }
 
 }
 
