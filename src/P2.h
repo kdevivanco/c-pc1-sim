@@ -12,43 +12,68 @@ using namespace std;
 
 
 
-template<typename Container = std::vector<int>, typename T = typename Container::value_type, typename GenCont = vector<T>> //, typename T = typename Container::value_type>
-Container get_maximum_product_range(const GenCont& input) {
-    //Container modified_input(input);
-    Container output;
-    Container neg_cont;
+template <
+        template<typename...> class Container = vector,
+        template <typename...> class GenCont,
+        typename T>
+Container<Container<T>> get_maximum_product_range(GenCont<T> input) {
+    Container<Container<T>> output;
+    Container<T> initial;
 
+    copy_if(initial.begin(), initial.end(), back_inserter(initial), [](T x){ return x; });
+
+    //Ubica iteradores donde 0
+    auto position_zero = remove(initial.begin(), initial.end(), 0);
+    //Borra los 0
+    initial.erase(position_zero, initial.end());
+
+    vector<T> neg_cont;
     int negative_counter = 0;
-    for (const auto& value : input) {
-        if (value > 0) {
-            output.push_back(value);
-        }
-        else if(value<0){
-            ++negative_counter;
+    for (const T& value : input) {
+        if (value < 0) {
             neg_cont.push_back(value);
+            ++negative_counter;
         }
     }
-    //valor mas bajo:
+
+    //Encuentra valor mas bajo:
+    auto nmax = -100000000000;
 
     if (negative_counter % 2 != 0){
-        auto max = -10000000;
+        //cout << "Es impar" << endl;
         for (const auto& value : neg_cont) {
-            if (value > max){
-                    max = value;
-                }
+            if (value > nmax) {
+                nmax = value;
             }
-        for (const auto& value : neg_cont) {
-            if (value != max){
-                output.push_back(value);
+        }
+        for(const T& value : input){
+            if (value != nmax && value != 0){
+                Container<T> temp = {value};
+                output.push_back(temp);
+            }
+        }
+    }
+    else
+        for(const T& value : input){
+            if (value != 0){
+                Container<T> temp = {value};
+                output.push_back(temp);
             }
         }
 
-        }
+
+
+//    //Itera sobre initial y borra i
+//    for (const auto& value : initial) {
+//        if (value != max){
+//            output.push_back(value);
+//        }
+//    }
+
 
 
     return output;
 }
-
 
 void question_2();
 
