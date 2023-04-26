@@ -38,7 +38,6 @@ Container<Container<T>> get_maximum_product_range(GenCont<T> input) {
 
     //Encuentra valor mas bajo:
     auto nmax = -100000000000;
-
     if (negative_counter % 2 != 0){
         //cout << "Es impar" << endl;
         for (const auto& value : neg_cont) {
@@ -46,8 +45,16 @@ Container<Container<T>> get_maximum_product_range(GenCont<T> input) {
                 nmax = value;
             }
         }
+        bool removed = false;
+        for (auto it = input.begin(); it != input.end(); ++it) {
+            if (*it == nmax && !removed) {
+                it = input.erase(it);
+                removed = true;
+                break;
+            }
+        }
         for(const T& value : input){
-            if (value != nmax && value != 0){
+            if (value != 0){
                 Container<T> temp = {value};
                 output.push_back(temp);
             }
